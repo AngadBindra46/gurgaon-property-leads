@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: gurgaon-property-leads
+    runtime: node
+    plan: free
+    buildCommand: npm install && node server/seed.js && node server/seed-properties.js && node server/seed-owners.js
+    startCommand: node server/index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
