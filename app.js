@@ -1,5 +1,30 @@
 const API = "/api";
 
+// ──── Auth ────
+function showUser() {
+  try {
+    const u = JSON.parse(localStorage.getItem("gl_user"));
+    const el = document.getElementById("navUser");
+    if (u && el) el.textContent = u.name || u.email;
+  } catch {}
+}
+
+async function logout() {
+  await fetch("/api/auth/logout", { method: "POST" });
+  localStorage.removeItem("gl_user");
+  window.location.href = "/login.html";
+}
+
+const _origFetch = window.fetch;
+window.fetch = async function (...args) {
+  const res = await _origFetch.apply(this, args);
+  if (res.status === 401 && !String(args[0]).includes("/api/auth/")) {
+    window.location.href = "/login.html";
+    return res;
+  }
+  return res;
+};
+
 const STATUS_MAP = {
   "new":         { label: "New",         emoji: "🟢", cls: "status-new" },
   "contacted":   { label: "Contacted",   emoji: "🟡", cls: "status-contacted" },
@@ -50,6 +75,7 @@ let properties = [];
 
 // ──── Init ────
 async function init() {
+  showUser();
   await Promise.all([fetchLeads(), fetchProperties()]);
   populateAreaFilter();
   populateSourceFilter();

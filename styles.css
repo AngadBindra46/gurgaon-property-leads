@@ -50,7 +50,9 @@ body {
 .nav-icon { font-size: 1.5rem; }
 .nav-title { font-weight: 700; font-size: 0.95rem; letter-spacing: -0.02em; }
 .nav-sub { font-size: 0.68rem; color: var(--muted); }
-.nav-actions { display: flex; gap: 0.5rem; }
+.nav-actions { display: flex; gap: 0.5rem; align-items: center; }
+.nav-user { font-size: 0.72rem; color: var(--green); font-weight: 600; padding: 0 0.4rem; white-space: nowrap; }
+.btn-logout { color: var(--rose) !important; border-color: var(--rose) !important; font-size: 0.72rem !important; padding: 0.35rem 0.7rem !important; }
 
 /* ── Buttons ── */
 .btn {

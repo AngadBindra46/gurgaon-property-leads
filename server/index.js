@@ -3,10 +3,12 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
+const cookieParser = require("cookie-parser");
 const { body, validationResult } = require("express-validator");
 const crypto = require("crypto");
 const path = require("path");
 const db = require("./db");
+const { requireAuth, mountAuthRoutes, getSession, COOKIE_SECRET } = require("./auth");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,7 +16,8 @@ const PORT = process.env.PORT || 3000;
 // ───────── Security Middleware ─────────
 
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({ origin: process.env.CORS_ORIGIN || "*", credentials: true }));
+app.use(cors({ origin: process.env.CORS_ORIGIN || true, credentials: true }));
+app.use(cookieParser(process.env.COOKIE_SECRET || COOKIE_SECRET));
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true, limit: "1mb" }));
 
@@ -104,15 +107,40 @@ function handleValidation(req, res, next) {
   next();
 }
 
+// ───────── Auth ─────────
+
+const root = path.join(__dirname, "..");
+mountAuthRoutes(app);
+
+app.get("/login.html", (req, res) => res.sendFile(path.join(root, "login.html")));
+
+// Gate dashboard behind auth (public forms stay open)
+app.get("/", (req, res) => {
+  if (!getSession(req)) return res.redirect("/login.html");
+  res.sendFile(path.join(root, "index.html"));
+});
+
+// Public pages (no auth needed)
+app.get("/form.html", (req, res) => res.sendFile(path.join(root, "form.html")));
+app.get("/landing.html", (req, res) => res.sendFile(path.join(root, "landing.html")));
+
 // ───────── Serve Static Files ─────────
 
-app.use(express.static(path.join(__dirname, "..")));
+app.use(express.static(root));
 
 // ───────── API: CSRF Token ─────────
 
 app.get("/api/csrf-token", (_req, res) => {
   res.json({ token: generateCsrf() });
 });
+
+// ───────── Protected API routes ─────────
+app.use("/api/leads", (req, res, next) => {
+  if (req.path === "/public" || req.path === "/landing") return next();
+  requireAuth(req, res, next);
+});
+app.use("/api/properties", requireAuth);
+app.use("/api/stats", requireAuth);
 
 // ───────── API: Leads CRUD ─────────
 
