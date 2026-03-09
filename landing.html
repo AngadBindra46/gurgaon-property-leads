@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Your Dream Property in Gurgaon — Free Consultation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#0a0a0f;--bg2:#12121a;--bg3:#16161f;
+      --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.12);
+      --text:#f0f0f5;--text2:#a0a0b8;--muted:#6b6b80;
+      --accent:#6366f1;--accent-g:rgba(99,102,241,0.15);
+      --green:#34d399;--green-g:rgba(52,211,153,0.12);
+      --amber:#fbbf24;--rose:#fb7185;--rose-g:rgba(251,113,133,0.12);
+      --r:12px;--rs:8px;--t:0.2s ease;
+    }
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:"Inter",system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+    .landing{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+
+    .landing-left{
+      display:flex;flex-direction:column;justify-content:center;
+      padding:3rem;
+      background:radial-gradient(ellipse at top left,rgba(99,102,241,0.08) 0%,transparent 60%);
+    }
+    .landing-badge{font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:0.4rem}
+    .landing-badge svg{width:16px;height:16px}
+    .landing-h1{font-size:2.4rem;font-weight:900;letter-spacing:-0.03em;line-height:1.15;margin-bottom:1rem}
+    .landing-h1 span{background:linear-gradient(135deg,#6366f1,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .landing-sub{font-size:1rem;color:var(--text2);line-height:1.7;margin-bottom:2rem;max-width:480px}
+    .trust-row{display:flex;gap:1.5rem;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:0.4rem;font-size:0.78rem;color:var(--text2)}
+    .trust-item svg{width:18px;height:18px;color:var(--green)}
+    .stats-row-landing{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem}
+    .stat-landing{text-align:center}
+    .stat-landing-num{font-size:1.6rem;font-weight:800;color:var(--accent)}
+    .stat-landing-lbl{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.04em;font-weight:600}
+
+    .landing-right{
+      display:flex;align-items:center;justify-content:center;padding:2rem;
+      background:var(--bg2);border-left:1px solid var(--border);
+    }
+    .landing-form-wrap{width:100%;max-width:420px}
+    .landing-form-title{font-size:1.2rem;font-weight:700;margin-bottom:0.3rem}
+    .landing-form-sub{font-size:0.82rem;color:var(--muted);margin-bottom:1.2rem}
+    .lf-group{margin-bottom:0.7rem}
+    .lf-group label{display:block;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.03em;color:var(--text2);margin-bottom:0.25rem}
+    .lf-group input,.lf-group select{
+      width:100%;padding:0.6rem 0.7rem;background:var(--bg3);border:1px solid var(--border);
+      border-radius:var(--rs);color:var(--text);font-size:0.82rem;font-family:inherit;outline:none;transition:var(--t)
+    }
+    .lf-group input:focus,.lf-group select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-g)}
+    .lf-row{display:grid;grid-template-columns:1fr 1fr;gap:0.6rem}
+    .consent-row{display:flex;align-items:flex-start;gap:0.5rem;margin:0.8rem 0 0.6rem}
+    .consent-row input[type="checkbox"]{margin-top:0.15rem;accent-color:var(--accent);width:16px;height:16px;flex-shrink:0}
+    .consent-text{font-size:0.68rem;color:var(--muted);line-height:1.4}
+    .lf-submit{
+      width:100%;padding:0.7rem;background:var(--accent);color:#fff;border:none;
+      border-radius:var(--rs);font-size:0.88rem;font-weight:700;font-family:inherit;cursor:pointer;transition:var(--t)
+    }
+    .lf-submit:hover{background:#4f46e5}
+    .lf-submit:disabled{opacity:0.5;cursor:not-allowed}
+    .shield-line{display:flex;align-items:center;gap:0.3rem;justify-content:center;margin-top:0.6rem;font-size:0.65rem;color:var(--muted)}
+    .shield-line svg{width:12px;height:12px;color:var(--green)}
+    .error-banner{background:var(--rose-g);border:1px solid rgba(251,113,133,0.2);border-radius:var(--rs);padding:0.5rem 0.7rem;font-size:0.78rem;color:var(--rose);margin-bottom:0.7rem;display:none}
+    .error-banner.show{display:block}
+    .success-state{display:none;text-align:center;padding:2rem 1rem}
+    .success-state.show{display:block}
+    .success-state .icon{font-size:3rem;margin-bottom:0.5rem}
+    .success-state h2{font-size:1.1rem;font-weight:700;color:var(--green);margin-bottom:0.3rem}
+    .success-state p{font-size:0.82rem;color:var(--text2)}
+
+    @media(max-width:768px){
+      .landing{grid-template-columns:1fr}
+      .landing-left{padding:2rem 1.5rem 1.5rem}
+      .landing-h1{font-size:1.6rem}
+      .landing-right{padding:1.5rem;border-left:none;border-top:1px solid var(--border)}
+    }
+  </style>
+</head>
+<body>
+  <div class="landing">
+    <div class="landing-left">
+      <div class="landing-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        RERA Registered Property Consultant
+      </div>
+      <h1 class="landing-h1">Find Your <span>Dream Property</span> in Gurgaon</h1>
+      <p class="landing-sub">Get personalized property recommendations from our experts. Whether you're looking for a luxury apartment on Golf Course Road or a smart investment on Dwarka Expressway — we'll find it for you. <strong>Free consultation, zero obligation.</strong></p>
+
+      <div class="trust-row">
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          HRERA Registered
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          500+ Happy Clients
+        </div>
+        <div class="trust-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          All Major Builders
+        </div>
+      </div>
+
+      <div class="stats-row-landing">
+        <div class="stat-landing"><div class="stat-landing-num">6</div><div class="stat-landing-lbl">Micro-Markets</div></div>
+        <div class="stat-landing"><div class="stat-landing-num">200+</div><div class="stat-landing-lbl">Projects Covered</div></div>
+        <div class="stat-landing"><div class="stat-landing-num">24hr</div><div class="stat-landing-lbl">Response Time</div></div>
+      </div>
+    </div>
+
+    <div class="landing-right">
+      <div class="landing-form-wrap">
+        <div class="landing-form-title">Tell us what you're looking for</div>
+        <div class="landing-form-sub">Fill in your requirements — our expert will call you within 24 hours</div>
+
+        <div class="error-banner" id="errBanner"></div>
+
+        <form id="landingForm">
+          <div class="lf-row">
+            <div class="lf-group">
+              <label>Full Name *</label>
+              <input type="text" id="lName" required placeholder="Your name" />
+            </div>
+            <div class="lf-group">
+              <label>Phone *</label>
+              <input type="tel" id="lPhone" required placeholder="9876543210" />
+            </div>
+          </div>
+          <div class="lf-group">
+            <label>Email</label>
+            <input type="email" id="lEmail" placeholder="you@email.com" />
+          </div>
+          <div class="lf-row">
+            <div class="lf-group">
+              <label>Property Type *</label>
+              <select id="lType" required>
+                <option value="">Select...</option>
+                <option value="2BHK">2 BHK</option>
+                <option value="3BHK">3 BHK</option>
+                <option value="4BHK">4 BHK</option>
+                <option value="5BHK+">5 BHK+</option>
+                <option value="Villa">Villa</option>
+                <option value="Plot">Plot</option>
+                <option value="Commercial">Commercial</option>
+              </select>
+            </div>
+            <div class="lf-group">
+              <label>Area *</label>
+              <select id="lArea" required>
+                <option value="">Select...</option>
+                <option value="Golf Course Road">Golf Course Road</option>
+                <option value="Dwarka Expressway">Dwarka Expressway</option>
+                <option value="Golf Course Ext Road (GCER)">GCER</option>
+                <option value="Sohna Road">Sohna Road</option>
+                <option value="DLF Phase 1-5">DLF Phase 1-5</option>
+                <option value="Sector 76-95">New Gurgaon (76-95)</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="lf-group">
+            <label>Budget Range *</label>
+            <select id="lBudget" required>
+              <option value="">Select...</option>
+              <option value="0-5000000">Under ₹50 Lakh</option>
+              <option value="5000000-10000000">₹50L - ₹1 Cr</option>
+              <option value="10000000-20000000">₹1 Cr - ₹2 Cr</option>
+              <option value="20000000-50000000">₹2 Cr - ₹5 Cr</option>
+              <option value="50000000-100000000">₹5 Cr - ₹10 Cr</option>
+              <option value="100000000-999999999">Above ₹10 Cr</option>
+            </select>
+          </div>
+
+          <div class="consent-row">
+            <input type="checkbox" id="lConsent" required />
+            <span class="consent-text">I consent to sharing my details for property inquiries. No spam, no unauthorized sharing.</span>
+          </div>
+
+          <button type="submit" class="lf-submit" id="lSubmit">Get Free Consultation</button>
+
+          <div class="shield-line">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Your data is encrypted and secure
+          </div>
+        </form>
+
+        <div class="success-state" id="successState">
+          <div class="icon">🎉</div>
+          <h2>Thank You!</h2>
+          <p>Your property inquiry has been received. Our expert will call you within 24 hours with the best options in your preferred area and budget.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("landingForm");
+    const errBanner = document.getElementById("errBanner");
+    const successState = document.getElementById("successState");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errBanner.classList.remove("show");
+
+      if (!document.getElementById("lConsent").checked) {
+        errBanner.textContent = "Please provide consent.";
+        errBanner.classList.add("show");
+        return;
+      }
+
+      const budgetParts = (document.getElementById("lBudget").value || "0-0").split("-");
+      const data = {
+        name: document.getElementById("lName").value,
+        phone: document.getElementById("lPhone").value,
+        email: document.getElementById("lEmail").value,
+        propertyType: document.getElementById("lType").value,
+        area: document.getElementById("lArea").value,
+        budgetMin: budgetParts[0],
+        budgetMax: budgetParts[1],
+        leadType: "buyer",
+        consent: "true",
+      };
+
+      document.getElementById("lSubmit").disabled = true;
+      document.getElementById("lSubmit").textContent = "Submitting...";
+
+      try {
+        const resp = await fetch("/api/leads/landing", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        const result = await resp.json();
+        if (resp.ok) {
+          form.style.display = "none";
+          successState.classList.add("show");
+        } else {
+          errBanner.textContent = result.error || "Something went wrong.";
+          errBanner.classList.add("show");
+          document.getElementById("lSubmit").disabled = false;
+          document.getElementById("lSubmit").textContent = "Get Free Consultation";
+        }
+      } catch {
+        errBanner.textContent = "Network error. Please try again.";
+        errBanner.classList.add("show");
+        document.getElementById("lSubmit").disabled = false;
+        document.getElementById("lSubmit").textContent = "Get Free Consultation";
+      }
+    });
+  </script>
+</body>
+</html>

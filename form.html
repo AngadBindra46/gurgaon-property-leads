@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Property Inquiry — Gurgaon</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    .form-page { max-width: 560px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+    .form-hero { text-align: center; margin-bottom: 2rem; }
+    .form-hero-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .form-hero h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.4rem; }
+    .form-hero p { color: var(--text2); font-size: 0.88rem; line-height: 1.6; }
+    .public-form { background: var(--bg2); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; }
+    .consent-row { display: flex; align-items: flex-start; gap: 0.6rem; margin: 1rem 0 0.5rem; }
+    .consent-row input[type="checkbox"] { margin-top: 0.2rem; accent-color: var(--accent); width: 18px; height: 18px; flex-shrink: 0; }
+    .consent-text { font-size: 0.75rem; color: var(--muted); line-height: 1.5; }
+    .consent-text a { color: var(--accent); }
+    .success-msg { display: none; text-align: center; padding: 2rem; }
+    .success-msg.show { display: block; }
+    .success-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+    .success-title { font-size: 1.2rem; font-weight: 700; color: var(--green); margin-bottom: 0.4rem; }
+    .success-sub { font-size: 0.85rem; color: var(--text2); }
+    .error-banner { background: var(--rose-g); border: 1px solid rgba(251,113,133,0.2); border-radius: var(--rs); padding: 0.6rem 0.8rem; font-size: 0.8rem; color: var(--rose); margin-bottom: 0.8rem; display: none; }
+    .error-banner.show { display: block; }
+    .shield-row { display: flex; align-items: center; gap: 0.5rem; justify-content: center; margin-top: 1rem; font-size: 0.7rem; color: var(--muted); }
+    .trust-badges { display: flex; gap: 0.8rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+    .trust-badge { font-size: 0.68rem; color: var(--text2); display: flex; align-items: center; gap: 0.3rem; }
+    .trust-badge svg { width: 14px; height: 14px; color: var(--green); }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-brand">
+      <div class="nav-icon">🏠</div>
+      <div>
+        <div class="nav-title">Gurgaon Property Search</div>
+        <div class="nav-sub">Find your dream home in Gurugram</div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="form-page">
+    <div class="form-hero">
+      <div class="form-hero-icon">🏡</div>
+      <h1>Looking for Property in Gurgaon?</h1>
+      <p>Tell us what you need — our experts will find the best options for you. Free, no-obligation consultation.</p>
+    </div>
+
+    <div class="public-form">
+      <div class="error-banner" id="errorBanner"></div>
+
+      <form id="publicForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name *</label>
+            <input type="text" id="pName" required placeholder="e.g. Rajesh Sharma" />
+          </div>
+          <div class="form-group">
+            <label>Phone *</label>
+            <input type="tel" id="pPhone" required placeholder="e.g. 9876543210" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="pEmail" placeholder="e.g. rajesh@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Property Type *</label>
+            <select id="pPropertyType" required>
+              <option value="">Select...</option>
+              <option value="1BHK">1 BHK</option>
+              <option value="2BHK">2 BHK</option>
+              <option value="3BHK">3 BHK</option>
+              <option value="4BHK">4 BHK</option>
+              <option value="5BHK+">5 BHK+</option>
+              <option value="Plot">Plot / Land</option>
+              <option value="Commercial">Commercial</option>
+              <option value="Villa">Villa / Independent</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Preferred Area *</label>
+            <select id="pArea" required>
+              <option value="">Select area...</option>
+              <optgroup label="Premium Corridors">
+                <option value="Golf Course Road">Golf Course Road</option>
+                <option value="Golf Course Ext Road (GCER)">Golf Course Extension Road</option>
+                <option value="Dwarka Expressway">Dwarka Expressway</option>
+              </optgroup>
+              <optgroup label="Established Areas">
+                <option value="DLF Phase 1-5">DLF Phase 1-5</option>
+                <option value="Sushant Lok">Sushant Lok</option>
+                <option value="South City">South City</option>
+                <option value="Sector 42-57">Sectors 42-57</option>
+              </optgroup>
+              <optgroup label="Growth Corridors">
+                <option value="Sohna Road">Sohna Road</option>
+                <option value="SPR">Southern Peripheral Road</option>
+                <option value="Sector 58-75">Sectors 58-75</option>
+              </optgroup>
+              <optgroup label="New Gurgaon">
+                <option value="Sector 76-95">Sectors 76-95</option>
+                <option value="Sector 99-113 (Dwarka Exp)">Dwarka Exp Sectors 99-113</option>
+              </optgroup>
+              <optgroup label="Other">
+                <option value="Manesar">Manesar</option>
+                <option value="Other">Other</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Budget Range *</label>
+            <select id="pBudget" required>
+              <option value="">Select...</option>
+              <option value="0-5000000">Under ₹50 Lakh</option>
+              <option value="5000000-10000000">₹50L - ₹1 Cr</option>
+              <option value="10000000-20000000">₹1 Cr - ₹2 Cr</option>
+              <option value="20000000-50000000">₹2 Cr - ₹5 Cr</option>
+              <option value="50000000-100000000">₹5 Cr - ₹10 Cr</option>
+              <option value="100000000-999999999">Above ₹10 Cr</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Timeline</label>
+            <select id="pTimeline">
+              <option value="">Select...</option>
+              <option value="Immediately">Immediately</option>
+              <option value="1-3 months">1-3 months</option>
+              <option value="3-6 months">3-6 months</option>
+              <option value="6-12 months">6-12 months</option>
+              <option value="Just exploring">Just exploring</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Preferred Projects</label>
+            <input type="text" id="pProjects" placeholder="e.g. DLF Camellias, M3M Golf Hills" />
+          </div>
+        </div>
+        <div class="form-group full-width">
+          <label>Any specific requirements?</label>
+          <textarea id="pNotes" rows="3" placeholder="e.g. Park-facing, need loan assistance, relocating by June..."></textarea>
+        </div>
+
+        <div class="consent-row">
+          <input type="checkbox" id="pConsent" required />
+          <span class="consent-text">
+            I consent to sharing my details for property inquiry purposes. My data will be used only to match me with suitable properties and will not be shared with unauthorized third parties.
+          </span>
+        </div>
+
+        <div class="form-actions" style="border:none;padding-top:0.5rem">
+          <button type="submit" class="btn btn-primary" style="width:100%;padding:0.7rem;font-size:0.9rem" id="pSubmit">Submit Inquiry</button>
+        </div>
+      </form>
+
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">✅</div>
+        <div class="success-title">Inquiry Submitted!</div>
+        <div class="success-sub">Thank you! Our property expert will contact you within 24 hours with the best options matching your requirements.</div>
+      </div>
+    </div>
+
+    <div class="shield-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;color:var(--green)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Your data is encrypted and secure</span>
+    </div>
+
+    <div class="trust-badges">
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        RERA Registered
+      </span>
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        Free Consultation
+      </span>
+      <span class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        No Spam, No Sharing
+      </span>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById("publicForm");
+    const errorBanner = document.getElementById("errorBanner");
+    const successMsg = document.getElementById("successMsg");
+    let csrfToken = "";
+
+    fetch("/api/csrf-token")
+      .then(r => r.json())
+      .then(d => { csrfToken = d.token; })
+      .catch(() => {});
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      errorBanner.classList.remove("show");
+
+      const consent = document.getElementById("pConsent").checked;
+      if (!consent) {
+        errorBanner.textContent = "Please provide consent to submit your inquiry.";
+        errorBanner.classList.add("show");
+        return;
+      }
+
+      const budgetParts = (document.getElementById("pBudget").value || "0-0").split("-");
+      const data = {
+        name: document.getElementById("pName").value,
+        phone: document.getElementById("pPhone").value,
+        email: document.getElementById("pEmail").value,
+        propertyType: document.getElementById("pPropertyType").value,
+        area: document.getElementById("pArea").value,
+        budgetMin: budgetParts[0],
+        budgetMax: budgetParts[1],
+        timeline: document.getElementById("pTimeline").value,
+        projects: document.getElementById("pProjects").value,
+        notes: document.getElementById("pNotes").value,
+        leadType: "buyer",
+        consent: "true",
+      };
+
+      document.getElementById("pSubmit").disabled = true;
+      document.getElementById("pSubmit").textContent = "Submitting...";
+
+      try {
+        const resp = await fetch("/api/leads/public", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "X-CSRF-Token": csrfToken },
+          body: JSON.stringify(data),
+        });
+        const result = await resp.json();
+        if (resp.ok) {
+          form.style.display = "none";
+          successMsg.classList.add("show");
+        } else {
+          errorBanner.textContent = result.error || "Something went wrong. Please try again.";
+          errorBanner.classList.add("show");
+          document.getElementById("pSubmit").disabled = false;
+          document.getElementById("pSubmit").textContent = "Submit Inquiry";
+          fetch("/api/csrf-token").then(r => r.json()).then(d => { csrfToken = d.token; });
+        }
+      } catch {
+        errorBanner.textContent = "Network error. Please check your connection.";
+        errorBanner.classList.add("show");
+        document.getElementById("pSubmit").disabled = false;
+        document.getElementById("pSubmit").textContent = "Submit Inquiry";
+      }
+    });
+  </script>
+</body>
+</html>
